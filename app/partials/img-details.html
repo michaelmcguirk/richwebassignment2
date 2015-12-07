@@ -1,0 +1,25 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>{{imageTitle}}</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <!--Body content-->
+
+        <div class="row">
+            <div class="col-xs-4"></div>
+            <div class="col-xs-4">
+                <div class="panel panel-info">
+                    <div class="panel-body">
+                        <img ng-src="{{imageURL}}" class="img-responsive img-rounded">
+                    </div>
+                    <div class="panel-footer">{{imageDescription}}
+                        <p>Location: {{imageLocation}}</p>
+                        <p>Owner: {{imageOwner}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
