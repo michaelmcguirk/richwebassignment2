@@ -1,20 +1,33 @@
 <!doctype html>
-<html lang="en" ng-app="phonecatApp">
+<html lang="en" ng-app="geoImgApp">
 
 <head>
     <meta charset="utf-8">
-    <title>GeoFlickr</title>
+    <title>geoflickr</title>
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,700' rel='stylesheet' type='text/css'>
+    <link href="http://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js" ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" ></script>
+    
     <!-- Auth0 Scripts provided by Auth0.com -->
     <script src="//code.angularjs.org/1.2.16/angular-cookies.min.js"></script>
     <script src="//cdn.auth0.com/js/lock-7.12.min.js"></script>
     <script type="text/javascript" src="//cdn.rawgit.com/auth0/angular-storage/master/dist/angular-storage.js"></script>
     <script type="text/javascript" src="//cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js"></script>
-    <script src="//cdn.auth0.com/w2/auth0-angular-4.js"> </script>
+    <script src="//cdn.auth0.com/w2/auth0-angular-4.js">
+    </script>
     <!-- End Auth0 Scripts -->
+
+    <!-- Firebase Scripts -->
+    <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>
+    <!-- End Firebase Scripts -->
+
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/filters.js"></script>
@@ -25,11 +38,26 @@
     <nav ng-controller="LoginCtrl" class="navbar navbar-inverse navbar-static-top navCustom">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="index.html">Instashite</a>
+                <a class="navbar-brand" href="index.html">
+                    <i class="fa fa-flickr"></i><i class="fa fa-globe"></i> geoFlickr</a>
             </div>
             <div>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#" ng-click="login()">Login</a></li>
+                    <li ng-if="userAuth.isAuthenticated" class="dropdown">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown" onclick="return false">{{userAuth.profile.nickname}}</a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#/user-profile"><i class="fa fa-fw fa-gear"></i> User Profile</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#" ng-click="logout()"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-if="userAuth.isAuthenticated"><img class="img-circle nav-avatar img-responsive" ng-src="{{userAuth.profile.picture}}"></img>
+                    </li>
+                    <li ng-if="!userAuth.isAuthenticated"><a href="#" ng-click="login()">Login</a></li>
                 </ul>
             </div>
         </div>

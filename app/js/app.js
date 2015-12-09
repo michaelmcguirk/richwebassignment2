@@ -2,17 +2,19 @@
 
 /* App Module */
 
-var phonecatApp = angular.module('phonecatApp', [
-  'auth0',
+var geoImgApp = angular.module('geoImgApp', [
+  'firebase',
+    'auth0',
     'angular-storage',
     'angular-jwt',
     'ngRoute',
-  'phonecatControllers',
-  'phonecatFilters'
+  'appControllers'
 ]);
 
-phonecatApp.run(function($rootScope, auth, store, jwtHelper, $location) {
+geoImgApp.run(function($rootScope, auth, store, jwtHelper, $location) {
   // This events gets triggered on refresh or URL change
+    $rootScope.userAuth = auth;
+    $rootScope.isAuth = auth.isAuthenticated;
   $rootScope.$on('$locationChangeStart', function() {
     var token = store.get('token');
     if (token) {
@@ -26,14 +28,20 @@ phonecatApp.run(function($rootScope, auth, store, jwtHelper, $location) {
       }
     }
   });
+    
+    $rootScope.logout = function(){
+        auth.signout();
+        store.remove('profile');
+        store.remove('token');
+    }
 });
 
-phonecatApp.config(['$routeProvider',
+geoImgApp.config(['$routeProvider',
   function ($routeProvider, authprovider, $locationProvider) {
         $routeProvider.
         when('/images', {
             templateUrl: 'partials/imglist.html',
-            controller: 'PhoneListCtrl',
+            controller: 'ImageSearchCtrl',
             requiresLogin: true
         }).
         when('/images/:imageid', {
@@ -44,12 +52,17 @@ phonecatApp.config(['$routeProvider',
             templateUrl: 'partials/login.html',
             controller: 'LoginCtrl'
         }).
+        when('/user-profile', {
+            templateUrl: 'partials/user-profile.html',
+            controller: 'UserProfileController'
+        }).
+        
         otherwise({
             redirectTo: '/images'
         });
   }]);
 
-phonecatApp.config(function (authProvider) {
+geoImgApp.config(function (authProvider) {
         authProvider.init({
             domain: 'mmcguirk.eu.auth0.com',
             clientID: '4vtABY7DNkxRNY6m6hWfXyN2pymjNs6M',

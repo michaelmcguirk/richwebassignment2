@@ -5,14 +5,20 @@
 
             <div class="input-group search-bar">
                 <input type="text" ng-model="search" ng-model-options="{debounce: 1000}" ng-change="locationSearch()" class="form-control" placeholder="Enter Location" autofocus />
-                <span class="input-group-addon bar-style"><i class="glyphicon glyphicon-search"></i></span>
+                <span class="input-group-btn">
+                <button class="btn btn-secondary" type="button" ng-click="locationSearch()"><i class="glyphicon glyphicon-search"></i></button>
+                </span>
+
             </div>
         </div>
 
     </div>
     <div class="row">
-    <p>{{location}}</p>
-        <p>{{lat}} -- {{lng}}</p>
+        <div class="col-md-12">
+            <p><kbd>Location:</kbd>&nbsp{{location}}&nbsp</p>
+            <p><kbd>Coordinates</kbd>&nbsp<b>Lat:</b> {{lat}}&nbsp<b>Lon:</b> {{lng}}</p>
+
+        </div>
     </div>
 
 

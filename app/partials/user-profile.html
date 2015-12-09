@@ -1,0 +1,56 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>{{userAuth.profile.nickname}}</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <!--Body content-->
+        <div class="col-xs-3">
+            <img class="img-responsive img-circle" ng-src="{{userAuth.profile.picture}}">
+        </div>
+    </div>
+
+    <div class="row">
+        <!--Body content-->
+
+        <div ng-repeat="i in userImages" ng-if="$index % 3 == 0" class="row">
+            <div class="col-xs-4">
+                <div class="panel panel-info">
+                    <div class="panel-body">
+                        <a href="#/images/{{i.imageID}}">
+                            <img ng-src="{{userImages[$index].imageURL}}" class="img-responsive img-rounded img-thumbnail" max-width: 50%>
+                        </a>
+                    </div>
+                    <div class="panel-footer"><a href="#/images/{{i.imageID}}">{{userImages[$index].imageTitle}}</a></div>
+                </div>
+            </div>
+
+            <div class="col-xs-4">
+                <div class="panel panel-info">
+                    <div class="panel-body">
+                        <a href="#/images/{{userImages[$index+1].imageID}}">
+                            <img ng-src="{{userImages[$index+1].imageURL}}" class="img-responsive img-rounded img-thumbnail" max-width: 50%>
+                        </a>
+                    </div>
+                    <div class="panel-footer"><a href="#/images/{{userImages[$index+1].imageID}}">{{userImages[$index+1].imageTitle}}</a></div>
+                </div>
+            </div>
+
+
+            <div class="col-xs-4">
+                <div class="panel panel-info">
+                    <div class="panel-body">
+                        <a href="#/images/{{userImages[$index+2].imageID}}">
+                            <img ng-src="{{userImages[$index+2].imageURL}}" class="img-responsive img-rounded img-thumbnail" max-width: 50%>
+                        </a>
+                    </div>
+                    <div class="panel-footer"><a href="#/images/{{userImages[$index+2].imageID}}">{{userImages[$index+2].imageTitle}}</a></div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
